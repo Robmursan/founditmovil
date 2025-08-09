@@ -30,6 +30,17 @@ export class CreateMaterial {
   isEditing: boolean = false;
   editingMaterialId: string = '';
   
+  // Message properties
+  showLogoutMessage = false;
+  showCreateMessage = false;
+  showEditMessage = false;
+  showDeleteMessage = false;
+  showValidationMessage = false;
+  showConfirmMessage = false;
+  showErrorMessage = false;
+  errorMessageText = '';
+  materialToDelete: any = null;
+  
   data = {
     celda: 0,
     materiales: [
@@ -55,10 +66,20 @@ export class CreateMaterial {
 
   // Logout functionality
   logout() {
-    if (confirm('¿Está seguro de que desea cerrar sesión? / Are you sure you want to logout?')) {
+    // Mostrar mensaje de logout exitoso
+    this.showLogoutMessage = true;
+    
+    // Limpiar token y redirigir después de 3 segundos
+    setTimeout(() => {
       localStorage.removeItem('token');
+      this.showLogoutMessage = false;
       this.router.navigate(['/login']);
-    }
+    }, 3000);
+  }
+
+  // Navigate to materiales page
+  goToMateriales() {
+    this.router.navigate(['/materiales']);
   }
 
   verMaterialNombre() {
@@ -162,6 +183,9 @@ export class CreateMaterial {
     
     console.log('Formulario llenado con datos:', this.data);
     console.log('ID del material a editar:', this.editingMaterialId);
+    
+    // Scroll to form section
+    this.scrollToForm();
   }
 
   cancelEdit() {
@@ -172,10 +196,20 @@ export class CreateMaterial {
 
   // Delete functionality
   confirmDelete(material: any) {
-    const materialId = material._id || material.id;
-    if (confirm(`¿Está seguro de que desea eliminar el material "${material.id}"? / Are you sure you want to delete the material "${material.id}"?`)) {
-      this.deleteMaterial(materialId);
-    }
+    this.materialToDelete = material;
+    this.showConfirmMessage = true;
+  }
+
+  confirmDeleteAction() {
+    const materialId = this.materialToDelete._id || this.materialToDelete.id;
+    this.showConfirmMessage = false;
+    this.materialToDelete = null;
+    this.deleteMaterial(materialId);
+  }
+
+  cancelDeleteAction() {
+    this.showConfirmMessage = false;
+    this.materialToDelete = null;
   }
 
   deleteMaterial(materialId: string) {
@@ -184,22 +218,29 @@ export class CreateMaterial {
     this.materialesService.deleteMateriales(materialId).subscribe(
       res => {
         console.log('Respuesta del servidor (eliminar):', res);
-        alert('Material eliminado correctamente / Material deleted successfully');
+        // Mostrar mensaje de éxito estilizado
+        this.showDeleteMessage = true;
+        
+        // Ocultar mensaje después de 3 segundos
+        setTimeout(() => {
+          this.showDeleteMessage = false;
+        }, 3000);
+        
         this.showMateriales(); // Refresh the list
       },
       err => {
         console.error('Error al eliminar material:', err);
-        let errorMessage = 'Error al eliminar el material / Error deleting material';
+        let errorMessage = 'Error al eliminar el material';
         
         if (err.error && err.error.mensaje) {
           errorMessage += `: ${err.error.mensaje}`;
         } else if (err.status === 500) {
-          errorMessage += ': Error interno del servidor / Internal server error';
+          errorMessage += ': Error interno del servidor';
         } else if (err.status === 404) {
-          errorMessage += ': Material no encontrado / Material not found';
+          errorMessage += ': Material no encontrado';
         }
         
-        alert(errorMessage);
+        this.showError(errorMessage);
       }
     );
   }
@@ -212,25 +253,32 @@ export class CreateMaterial {
       this.materialesService.createMateriales(this.data).subscribe(
         res => {
           console.log('Respuesta del servidor (crear):', res);
-          alert('Material creado correctamente / Material created successfully');
+          // Mostrar mensaje de éxito estilizado
+          this.showCreateMessage = true;
+          
+          // Ocultar mensaje después de 3 segundos
+          setTimeout(() => {
+            this.showCreateMessage = false;
+          }, 3000);
+          
           this.limpiarMaterial();
           this.showMateriales(); // Refresh the list
         },
         err => {
           console.error('Error al crear material:', err);
-          let errorMessage = 'Error al crear el material / Error creating material';
+          let errorMessage = 'Error al crear el material';
           
           if (err.error && err.error.mensaje) {
             errorMessage += `: ${err.error.mensaje}`;
           } else if (err.status === 500) {
-            errorMessage += ': Error interno del servidor / Internal server error';
+            errorMessage += ': Error interno del servidor';
           }
           
-          alert(errorMessage);
+          this.showError(errorMessage);
         }
       );
     } else {
-      alert('Por favor, complete todos los campos / Please fill in all fields');
+      this.showValidation();
     }
   }
 
@@ -246,7 +294,14 @@ export class CreateMaterial {
       this.materialesService.updateMateriales(originalId, this.data.materiales[0]).subscribe(
         res => {
           console.log('Respuesta del servidor (actualizar):', res);
-          alert('Material actualizado correctamente / Material updated successfully');
+          // Mostrar mensaje de éxito estilizado
+          this.showEditMessage = true;
+          
+          // Ocultar mensaje después de 3 segundos
+          setTimeout(() => {
+            this.showEditMessage = false;
+          }, 3000);
+          
           this.isEditing = false;
           this.editingMaterialId = '';
           this.limpiarMaterial();
@@ -254,21 +309,21 @@ export class CreateMaterial {
         },
         err => {
           console.error('Error al actualizar material:', err);
-          let errorMessage = 'Error al actualizar el material / Error updating material';
+          let errorMessage = 'Error al actualizar el material';
           
           if (err.error && err.error.mensaje) {
             errorMessage += `: ${err.error.mensaje}`;
           } else if (err.status === 404) {
-            errorMessage += ': Material no encontrado / Material not found';
+            errorMessage += ': Material no encontrado';
           } else if (err.status === 500) {
-            errorMessage += ': Error interno del servidor / Internal server error';
+            errorMessage += ': Error interno del servidor';
           }
           
-          alert(errorMessage);
+          this.showError(errorMessage);
         }
       );
     } else {
-      alert('Por favor, complete todos los campos / Please fill in all fields');
+      this.showValidation();
     }
   }
 
@@ -293,5 +348,47 @@ export class CreateMaterial {
       movimientos: [],
       movimientoSeleccionado: ''
     };
+  }
+
+  // Show validation message
+  showValidation() {
+    this.showValidationMessage = true;
+    setTimeout(() => {
+      this.showValidationMessage = false;
+    }, 3000);
+  }
+
+  // Show error message
+  showError(message: string) {
+    this.errorMessageText = message;
+    this.showErrorMessage = true;
+    setTimeout(() => {
+      this.showErrorMessage = false;
+      this.errorMessageText = '';
+    }, 4000);
+  }
+
+  // Scroll to form section
+  private scrollToForm() {
+    // Small delay to ensure the form is updated
+    setTimeout(() => {
+      const formSection = document.getElementById('materialForm');
+      if (formSection) {
+        // Smooth scroll to form with offset
+        const offset = 80; // 80px offset from top
+        const elementPosition = formSection.offsetTop - offset;
+        
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        });
+        
+        // Add a subtle highlight effect
+        formSection.classList.add('form-highlight');
+        setTimeout(() => {
+          formSection.classList.remove('form-highlight');
+        }, 2000);
+      }
+    }, 150);
   }
 }

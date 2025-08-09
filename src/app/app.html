@@ -1,2 +1,22 @@
+<!-- Loading Spinner -->
+<div class="loading-spinner" *ngIf="isLoading">
+  <div class="spinner-container">
+    <div class="spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    <div class="spinner-text">
+      <span class="logo-f">F</span>
+      <span class="logo-ound">OUND</span>
+      <span class="logo-it">IT</span>
+      <span class="logo-software">Software</span>
+    </div>
+    <p>Cargando...</p>
+  </div>
+</div>
 
-<router-outlet />
+<!-- Main Content with Transitions -->
+<div class="app-container" [class.loading]="isLoading">
+  <router-outlet />
+</div>

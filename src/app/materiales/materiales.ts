@@ -20,6 +20,7 @@ export class Materiales {
     movimientos: []
   }
   materiales: any;
+  
   constructor(private materialesService: MaterialesService, private router: Router){}
   
   consultarTodosMateriales(){
@@ -34,5 +35,7 @@ export class Materiales {
     )
   }
 
-
+  navigateToCreate() {
+    this.router.navigate(['/create-material']);
+  }
 }

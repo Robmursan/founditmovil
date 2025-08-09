@@ -1,0 +1,270 @@
+/* 
+FOUND IT Software - Estilos globales para transiciones y spinner
+Colores de la marca:
+- Azul oscuro (F): #1e3a8a - Color principal de marca
+- Azul claro (OUND): #3b82f6 - Color secundario de marca  
+- Rojo (IT): #dc2626 - Color de acento de marca
+- Gris (Software): #6b7280 - Color neutro
+*/
+
+/* App Container */
+.app-container {
+  min-height: 100vh;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.app-container.loading {
+  opacity: 0.3;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1d42e4 0%, #335c7e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+  backdrop-filter: blur(5px);
+}
+
+.spinner-container {
+  text-align: center;
+  color: white;
+}
+
+/* Spinner Animation */
+.spinner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+  animation: spinnerFloat 3s ease-in-out infinite;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: spinnerRotate 2s linear infinite;
+}
+
+.spinner-ring:nth-child(1) {
+  border-top-color: #1e3a8a;
+  animation-delay: 0s;
+  box-shadow: 0 0 20px rgba(30, 58, 138, 0.3);
+}
+
+.spinner-ring:nth-child(2) {
+  border-right-color: #3b82f6;
+  animation-delay: 0.3s;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.spinner-ring:nth-child(3) {
+  border-bottom-color: #dc2626;
+  animation-delay: 0.6s;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+/* Spinner Text */
+.spinner-text {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+.spinner-text .logo-f {
+  color: #1e3a8a;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.3);
+}
+
+.spinner-text .logo-ound {
+  color: #3b82f6;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.spinner-text .logo-it {
+  color: #dc2626;
+  font-size: 2rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+.spinner-text .logo-software {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.spinner-container p {
+  font-size: 1.1rem;
+  margin: 0;
+  opacity: 0.9;
+  animation: textFade 1.5s ease-in-out infinite;
+}
+
+/* Route Transitions */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spinnerRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes textFade {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spinnerFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Smooth transitions for all components */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Page transitions */
+.page-container {
+  animation: pageSlideIn 0.5s ease-out;
+}
+
+.login-container {
+  animation: pageSlideIn 0.5s ease-out;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Component transitions */
+.component-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.component-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease-out;
+}
+
+.component-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.component-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .spinner {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .spinner-text {
+    font-size: 1.5rem;
+  }
+  
+  .spinner-text .logo-f {
+    font-size: 2rem;
+  }
+  
+  .spinner-text .logo-ound,
+  .spinner-text .logo-it {
+    font-size: 1.5rem;
+  }
+  
+  .spinner-text .logo-software {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .spinner {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .spinner-text {
+    font-size: 1.2rem;
+  }
+  
+  .spinner-text .logo-f {
+    font-size: 1.5rem;
+  }
+  
+  .spinner-text .logo-ound,
+  .spinner-text .logo-it {
+    font-size: 1.2rem;
+  }
+  
+  .spinner-text .logo-software {
+    font-size: 0.7rem;
+  }
+}

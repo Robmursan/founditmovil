@@ -1,66 +1,118 @@
-<!-- Vista de tabla de materiales / Materials table view -->
+<!-- Vista de tabla de materiales -->
+<!-- FOUND IT Software - Sistema de Gestión de Materiales -->
 
-<!-- 
-Español: Se agregó un botón para consultar y mostrar los materiales.
-English: A button was added to fetch and display the materials.
--->
+<div class="page-container">
+  <!-- Header Section with FOUND IT Branding -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="brand-section">
+        <div class="logo">
+          <span class="logo-f">F</span>
+          <span class="logo-ound">OUND</span>
+          <span class="logo-it">IT</span>
+          <!-- <span class="logo-software">Software</span> -->
+        </div>
+        <div class="header-text">
+          <!-- <h1>Gestión de Materiales</h1> -->
+        <!--   <p>
+            Sistema de control y seguimiento de inventario de materiales.
+          </p> -->
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary" (click)="consultarTodosMateriales()">
+          <i class="icon">🔄</i>
+          Actualizar
+        </button>
+        <button class="btn-secondary" (click)="navigateToCreate()">
+          <i class="icon">➕</i>
+          Nuevo Material
+        </button>
+      </div>
+    </div>
+  </div>
 
-<button (click)="consultarTodosMateriales()">
-  Consultar materiales / Fetch materials
-</button>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Cantidad</th>
-      <th>Ubicación</th>
-      <th>Movimientos</th>
-      <th>Historial</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Español: Itera sobre la lista de materiales obtenida de la función consultarTodosMateriales -->
-    <!-- English: Iterate over the materials list obtained from consultarTodosMateriales function -->
-    <tr *ngFor="let material of materiales">
-      <!-- 
-        Español: Centramos el contenido de cada celda y ajustamos el formato para que la información se vea alineada y clara.
-        English: Center the content of each cell and adjust the format so the information looks aligned and clear.
-      -->
-      <td style="text-align: center; vertical-align: middle;">{{ material.nombre }}</td>
-      <td style="text-align: center; vertical-align: middle; max-width: 200px; word-break: break-word;">
-        {{ material.descripcion }}
-      </td>
-      <td style="text-align: center; vertical-align: middle; width: 80px;">
-        {{ material.cantidad }}
-      </td>
-      <td style="text-align: center; vertical-align: middle; max-width: 150px; word-break: break-word;">
-        {{ material.ubicacion }}
-      </td>
-      <td style="text-align: center; vertical-align: middle; width: 180px;">
-        {{ material.Timestamp ? (material.Timestamp | date:'yyyy-MM-dd HH:mm:ss') : '' }}
-      </td>
-      <td style="text-align: center; vertical-align: middle; max-width: 250px; word-break: break-word;">
-        <!-- 
-          Español: Al acercar el cursor sobre cada movimiento, se muestra la hora (timestamp) en un tooltip.
-          English: When hovering over each movement, the time (timestamp) is shown in a tooltip.
-        -->
-        <span *ngFor="let movimiento of material.movimientos; let last = last">
-          <span 
-            [title]="movimiento.timestamp ? (movimiento.timestamp | date:'yyyy-MM-dd HH:mm:ss') : ''"
-            style="cursor: pointer;">
-            {{ movimiento.descripcion || movimiento }}
-          </span>
-          <span *ngIf="!last">, </span>
+  <!-- Materials Table Section -->
+  <div class="materials-section">
+    <div class="section-header">
+      <h2>Inventario de Materiales</h2>
+      <div class="items-info">
+        <span *ngIf="materiales">
+          <i class="icon">📊</i>
+          Total: {{ materiales.length }} materiales
         </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
 
-<!-- 
-Español: La tabla está lista para mostrar los materiales consultados desde el servicio.
-English: The table is ready to display materials fetched from the service.
--->
+    <!-- Materials Table -->
+    <div class="table-container" *ngIf="materiales && materiales.length > 0">
+      <table class="materials-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Ubicación</th>
+            <th>Movimientos</th>
+            <th>Historial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let material of materiales; let i = index" class="material-row">
+            <td class="material-name">
+              <div class="name-cell">
+                <i class="icon">📦</i>
+                {{ material.nombre }}
+              </div>
+            </td>
+            <td class="material-description">
+              {{ material.descripcion }}
+            </td>
+            <td class="material-quantity">
+              <span class="quantity-badge" [class.low-stock]="material.cantidad < 10">
+                {{ material.cantidad }}
+              </span>
+            </td>
+            <td class="material-location">
+              <div class="location-cell">
+                <i class="icon">📍</i>
+                {{ material.ubicacion }}
+              </div>
+            </td>
+            <td class="material-movements">
+              <span *ngIf="material.Timestamp" class="timestamp">
+                {{ material.Timestamp | date:'yyyy-MM-dd HH:mm:ss' }}
+              </span>
+            </td>
+            <td class="material-history">
+              <div class="history-cell">
+                <span *ngFor="let movimiento of material.movimientos; let last = last">
+                  <span 
+                    class="movement-item"
+                    [title]="movimiento.timestamp ? (movimiento.timestamp | date:'yyyy-MM-dd HH:mm:ss') : ''">
+                    {{ movimiento.descripcion || movimiento }}
+                  </span>
+                  <span *ngIf="!last" class="separator">, </span>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!materiales || materiales.length === 0">
+      <div class="empty-content">
+        <i class="empty-icon">📋</i>
+        <h3>No hay materiales registrados</h3>
+        <p>No se encontraron materiales en el sistema</p>
+        <button class="btn-primary" (click)="consultarTodosMateriales()">
+          <i class="icon">🔄</i>
+          Cargar Materiales
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 

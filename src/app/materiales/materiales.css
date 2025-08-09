@@ -1,0 +1,433 @@
+/* 
+FOUND IT Software - Sistema de Gestión de Materiales
+Colores de la marca según la imagen del logo:
+- Azul oscuro (F): #1e3a8a - Color principal de marca
+- Azul claro (OUND): #3b82f6 - Color secundario de marca  
+- Rojo (IT): #dc2626 - Color de acento de marca
+- Gris (Software): #6b7280 - Color neutro
+*/
+
+/* Page Container */
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 100vh;
+}
+
+/* Header Section */
+.page-header {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+}
+
+/* FOUND IT Logo Styling - Colores exactos de la imagen */
+.logo {
+  display: flex;
+  align-items: baseline;
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1;
+  position: relative;
+}
+
+.logo-f {
+  color: #1e3a8a;
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.3);
+}
+
+.logo-ound {
+  color: #3b82f6;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-left: -5px;
+}
+
+.logo-it {
+  color: #dc2626;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-left: 8px;
+  text-shadow: 2px 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+.logo-software {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 15px;
+  position: absolute;
+  bottom: -5px;
+  right: -80px;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.header-text h1 {
+  color: #1e3a8a;
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-text p {
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Button Styles - Usando colores de marca */
+.btn-primary, .btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+}
+
+/* Materials Section */
+.materials-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.section-header h2 {
+  color: #1e3a8a;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.items-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.items-info .icon {
+  font-size: 1.2rem;
+}
+
+/* Table Styles - Mejorado con colores de marca */
+.table-container {
+  overflow-x: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.materials-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.materials-table thead {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+}
+
+.materials-table th {
+  padding: 18px 15px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.materials-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.materials-table tbody tr:hover {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.materials-table td {
+  padding: 15px;
+  vertical-align: middle;
+}
+
+/* Material Row Specific Styles - Mejorado con colores de marca */
+.material-name .name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.material-description {
+  color: #4b5563;
+  max-width: 250px;
+  word-break: break-word;
+}
+
+.material-quantity .quantity-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.material-quantity .quantity-badge.low-stock {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.material-location .location-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.material-movements .timestamp {
+  color: #6b7280;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.material-history .history-cell {
+  max-width: 300px;
+  word-break: break-word;
+}
+
+.movement-item {
+  color: #3b82f6;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.movement-item:hover {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+.separator {
+  color: #9ca3af;
+}
+
+/* Empty State - Mejorado con colores de marca */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.empty-state h3 {
+  color: #1e3a8a;
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.empty-state p {
+  margin: 0 0 30px 0;
+  font-size: 1.1rem;
+}
+
+/* Icons */
+.icon {
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .brand-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .logo {
+    font-size: 2rem;
+  }
+  
+  .logo-f {
+    font-size: 2.8rem;
+  }
+  
+  .logo-ound, .logo-it {
+    font-size: 2rem;
+  }
+  
+  .logo-software {
+    font-size: 0.8rem;
+    right: -60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 15px;
+  }
+  
+  .page-header {
+    padding: 20px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .materials-table {
+    font-size: 0.9rem;
+  }
+  
+  .materials-table th,
+  .materials-table td {
+    padding: 12px 8px;
+  }
+  
+  .material-name .name-cell,
+  .material-location .location-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .logo-f {
+    font-size: 2rem;
+  }
+  
+  .logo-ound, .logo-it {
+    font-size: 1.5rem;
+  }
+  
+  .logo-software {
+    font-size: 0.7rem;
+    right: -50px;
+  }
+  
+  .header-text h1 {
+    font-size: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}

@@ -1,23 +1,32 @@
 <!-- 
-Español: Página completa para gestionar materiales con paginación, búsqueda y formulario.
-English: Complete page to manage materials with pagination, search and form.
+FOUND IT Software - Sistema de Gestión de Materiales
+Página completa para gestionar materiales con paginación, búsqueda y formulario.
 -->
 
 <div class="page-container">
-  <!-- Header Section -->
+  <!-- Header Section with FOUND IT Branding -->
   <div class="page-header">
     <div class="header-content">
-      <div class="header-text">
-        <h1>Gestión de Materiales | Materials Management</h1>
-        <p>
-          Español: Administre sus materiales con búsqueda, paginación y formulario de creación.<br>
-          English: Manage your materials with search, pagination and creation form.
-        </p>
-      </div>
+      <div class="brand-section">
+        <div class="brand-section" style="display: flex; align-items: center; gap: 30px;">
+          <div class="logo">
+            <span class="logo-f">F</span>
+            <span class="logo-ound">OUND</span>
+            <span class="logo-it">IT</span>
+            <!-- <span class="logo-software">Software</span> -->
+          </div>
+          <div class="header-text" style="display: flex; align-items: center;">
+            <h1 style="margin: 0;">Gestión de Materiales</h1>
+          </div>
+        </div>
       <div class="header-actions">
-        <button class="btn-logout" (click)="logout()" title="Cerrar sesión / Logout">
+        <button class="btn-back" (click)="goToMateriales()" title="Regresar a Materiales">
+          <i class="icon">⬅️</i>
+          Regresar a Materiales
+        </button>
+        <button class="btn-logout" (click)="logout()" title="Cerrar sesión">
           <i class="icon">🚪</i>
-          Cerrar sesión / Logout
+          Cerrar sesión
         </button>
       </div>
     </div>
@@ -28,14 +37,14 @@ English: Complete page to manage materials with pagination, search and form.
     <div class="search-container">
       <label for="searchInput" class="search-label">
         <i class="icon">🔍</i>
-        Buscar por nombre / Search by name
+        Buscar por nombre
       </label>
       <input
         type="text"
         id="searchInput"
         [(ngModel)]="searchTerm"
         (input)="filterMaterials()"
-        placeholder="Ingrese nombre del material / Enter material name"
+        placeholder="Ingrese nombre del material"
         class="search-input"
       />
     </div>
@@ -44,23 +53,29 @@ English: Complete page to manage materials with pagination, search and form.
   <!-- Materials List Section -->
   <div class="materials-section">
     <div class="section-header">
-      <h2>Lista de Materiales | Materials List</h2>
+      <h2>Lista de Materiales</h2>
       <div class="items-info">
         <span>Mostrando {{ startIndex + 1 }}-{{ endIndex }} de {{ filteredMaterials.length }} materiales</span>
       </div>
     </div>
 
     <!-- Materials Table -->
+    <!-- 
+    Español: 
+    Se cambió el color de fondo de la primera fila (encabezado) de la tabla a #1d42e4 0% usando un estilo en línea.
+    English:
+    The background color of the first row (header) of the table was changed to #1d42e4 0% using an inline style.
+    -->
     <div class="table-container">
       <table class="materials-table">
         <thead>
-          <tr>
-            <th>Celda / Cell</th>
-            <th>Nombre / Name</th>
-            <th>Descripción / Description</th>
-            <th>Cantidad / Quantity</th>
-            <th>Ubicación / Location</th>
-            <th>Acciones / Actions</th>
+          <tr style="background: #1d42e4 0%;">
+            <th>Celda</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -74,14 +89,14 @@ English: Complete page to manage materials with pagination, search and form.
               <button 
                 class="btn-edit" 
                 (click)="editMaterial(material)"
-                title="Editar / Edit"
+                title="Editar"
               >
                 <i class="icon">✏️</i>
               </button>
               <button 
                 class="btn-delete" 
                 (click)="confirmDelete(material)"
-                title="Eliminar / Delete"
+                title="Eliminar"
               >
                 <i class="icon">🗑️</i>
               </button>
@@ -102,7 +117,7 @@ English: Complete page to manage materials with pagination, search and form.
           [disabled]="currentPage === 1"
           (click)="previousPage()"
         >
-          <i class="icon">⬅️</i> Anterior / Previous
+          <i class="icon">⬅️</i> Anterior
         </button>
         
         <div class="page-numbers">
@@ -121,19 +136,18 @@ English: Complete page to manage materials with pagination, search and form.
           [disabled]="currentPage === totalPages"
           (click)="nextPage()"
         >
-          Siguiente / Next <i class="icon">➡️</i>
+          Siguiente <i class="icon">➡️</i>
         </button>
       </div>
     </div>
   </div>
 
   <!-- Create/Update Form Section -->
-  <div class="form-section">
+  <div class="form-section" id="materialForm">
     <div class="form-header">
-      <h2>{{ isEditing ? 'Actualizar Material | Update Material' : 'Crear Material | Create Material' }}</h2>
+      <h2>{{ isEditing ? 'Actualizar Material' : 'Crear Material' }}</h2>
       <p>
-        Español: Complete los campos para {{ isEditing ? 'modificar' : 'registrar' }} un material.<br>
-        English: Fill in the fields to {{ isEditing ? 'modify' : 'register' }} a material.
+        Complete los campos para {{ isEditing ? 'modificar' : 'registrar' }} un material.
       </p>
     </div>
 
@@ -142,7 +156,7 @@ English: Complete page to manage materials with pagination, search and form.
         <div class="form-group">
           <label for="celda" class="form-label">
             <i class="icon">📦</i>
-            Celda / Cell
+            Celda
           </label>
           <input
             type="number"
@@ -151,7 +165,7 @@ English: Complete page to manage materials with pagination, search and form.
             [(ngModel)]="data.celda"
             required
             min="1"
-            placeholder="Ingrese el número de celda / Enter cell number"
+            placeholder="Ingrese el número de celda"
             class="form-input"
           />
         </div>
@@ -159,7 +173,7 @@ English: Complete page to manage materials with pagination, search and form.
         <div class="form-group">
           <label for="nombre" class="form-label">
             <i class="icon">🏷️</i>
-            Nombre / Name
+            Nombre
           </label>
           <input
             type="text"
@@ -167,7 +181,7 @@ English: Complete page to manage materials with pagination, search and form.
             name="nombre"
             [(ngModel)]="data.materiales[0].nombre"
             required
-            placeholder="Ingrese el nombre / Enter name"
+            placeholder="Ingrese el nombre"
             class="form-input"
           />
         </div>
@@ -176,14 +190,14 @@ English: Complete page to manage materials with pagination, search and form.
       <div class="form-group full-width">
         <label for="descripcion" class="form-label">
           <i class="icon">📝</i>
-          Descripción / Description
+          Descripción
         </label>
         <textarea
           id="descripcion"
           name="descripcion"
           [(ngModel)]="data.materiales[0].descripcion"
           required
-          placeholder="Ingrese la descripción / Enter description"
+          placeholder="Ingrese la descripción"
           class="form-textarea"
           rows="3"
         ></textarea>
@@ -193,7 +207,7 @@ English: Complete page to manage materials with pagination, search and form.
         <div class="form-group">
           <label for="cantidad" class="form-label">
             <i class="icon">🔢</i>
-            Cantidad / Quantity
+            Cantidad
           </label>
           <input
             type="number"
@@ -202,7 +216,7 @@ English: Complete page to manage materials with pagination, search and form.
             [(ngModel)]="data.materiales[0].cantidad"
             required
             min="1"
-            placeholder="Ingrese la cantidad / Enter quantity"
+            placeholder="Ingrese la cantidad"
             class="form-input"
           />
         </div>
@@ -210,7 +224,7 @@ English: Complete page to manage materials with pagination, search and form.
         <div class="form-group">
           <label for="ubicacion" class="form-label">
             <i class="icon">📍</i>
-            Ubicación / Location
+            Ubicación
           </label>
           <input
             type="text"
@@ -218,7 +232,7 @@ English: Complete page to manage materials with pagination, search and form.
             name="ubicacion"
             [(ngModel)]="data.materiales[0].ubicacion"
             required
-            placeholder="Ingrese la ubicación / Enter location"
+            placeholder="Ingrese la ubicación"
             class="form-input"
           />
         </div>
@@ -227,7 +241,7 @@ English: Complete page to manage materials with pagination, search and form.
       <div class="form-group full-width">
         <label for="movimiento" class="form-label">
           <i class="icon">🔄</i>
-          Movimiento / Movement
+          Movimiento
         </label>
         <select
           id="movimiento"
@@ -236,26 +250,145 @@ English: Complete page to manage materials with pagination, search and form.
           required
           class="form-select"
         >
-          <option value="" disabled selected>Seleccione el tipo de movimiento / Select movement type</option>
-          <option value="entrada">Entrada / Entry</option>
-          <option value="salida">Salida / Exit</option>
+          <option value="" disabled selected>Seleccione el tipo de movimiento</option>
+          <option value="entrada">Entrada</option>
+          <option value="salida">Salida</option>
         </select>
       </div>
 
       <div class="form-actions">
         <button type="submit" class="btn-submit">
           <i class="icon">✅</i>
-          {{ isEditing ? 'Actualizar / Update' : 'Crear / Create' }}
+          {{ isEditing ? 'Actualizar' : 'Crear' }}
         </button>
         <button type="button" class="btn-clear" (click)="limpiarMaterial()">
           <i class="icon">🧹</i>
-          Limpiar / Clear
+          Limpiar
         </button>
         <button *ngIf="isEditing" type="button" class="btn-cancel" (click)="cancelEdit()">
           <i class="icon">❌</i>
-          Cancelar / Cancel
+          Cancelar
         </button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- Mensaje de logout exitoso estilizado -->
+<div class="logout-message" *ngIf="showLogoutMessage">
+  <div class="logout-content">
+    <div class="logout-icon">
+      <i class="icon">👋</i>
+    </div>
+    <div class="logout-text">
+      <h3>¡Sesión Cerrada!</h3>
+      <p>Has cerrado sesión exitosamente</p>
+    </div>
+    <div class="logout-progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de crear material exitoso -->
+<div class="success-message" *ngIf="showCreateMessage">
+  <div class="success-content">
+    <div class="success-icon">
+      <i class="icon">✅</i>
+    </div>
+    <div class="success-text">
+      <h3>¡Material Creado!</h3>
+      <p>El material se ha creado exitosamente</p>
+    </div>
+    <div class="success-progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de editar material exitoso -->
+<div class="edit-message" *ngIf="showEditMessage">
+  <div class="edit-content">
+    <div class="edit-icon">
+      <i class="icon">✏️</i>
+    </div>
+    <div class="edit-text">
+      <h3>¡Material Actualizado!</h3>
+      <p>El material se ha actualizado exitosamente</p>
+    </div>
+    <div class="edit-progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de eliminar material exitoso -->
+<div class="delete-message" *ngIf="showDeleteMessage">
+  <div class="delete-content">
+    <div class="delete-icon">
+      <i class="icon">🗑️</i>
+    </div>
+    <div class="delete-text">
+      <h3>¡Material Eliminado!</h3>
+      <p>El material se ha eliminado exitosamente</p>
+    </div>
+    <div class="delete-progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de validación de campos -->
+<div class="validation-message" *ngIf="showValidationMessage">
+  <div class="validation-content">
+    <div class="validation-icon">
+      <i class="icon">⚠️</i>
+    </div>
+    <div class="validation-text">
+      <h3>Campos Requeridos</h3>
+      <p>Por favor, complete todos los campos obligatorios</p>
+    </div>
+    <div class="validation-progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de confirmación de eliminación -->
+<div class="confirm-message" *ngIf="showConfirmMessage">
+  <div class="confirm-content">
+    <div class="confirm-icon">
+      <i class="icon">❓</i>
+    </div>
+    <div class="confirm-text">
+      <h3>Confirmar Eliminación</h3>
+      <p>¿Está seguro de que desea eliminar el material "{{ materialToDelete?.nombre || 'este material' }}"?</p>
+    </div>
+    <div class="confirm-actions">
+      <button class="btn-confirm-yes" (click)="confirmDeleteAction()">
+        <i class="icon">✅</i>
+        Sí, Eliminar
+      </button>
+      <button class="btn-confirm-no" (click)="cancelDeleteAction()">
+        <i class="icon">❌</i>
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mensaje de error -->
+<div class="error-message" *ngIf="showErrorMessage">
+  <div class="error-content">
+    <div class="error-icon">
+      <i class="icon">🚨</i>
+    </div>
+    <div class="error-text">
+      <h3>Error</h3>
+      <p>{{ errorMessageText }}</p>
+    </div>
+    <div class="error-progress">
+      <div class="progress-bar"></div>
+    </div>
   </div>
 </div>

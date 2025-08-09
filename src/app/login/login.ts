@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 import { Login as LoginService } from '../servicios/login';//importamos el servicio de login
 import { Router } from '@angular/router'; //importamos el router para poder redirigir a la pagina de inicio
 
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -15,6 +16,8 @@ export class Login {
     email:'',
     password:''
   }
+  
+  showSuccessMessage = false;
 
   constructor(private loginService: LoginService, private router: Router){}//constructor del componente login con el servicio de login y el router
 
@@ -22,13 +25,17 @@ export class Login {
     this.loginService.login(this.usuario).subscribe(
       res => {
         localStorage.setItem('token', res.token)
-        alert('Login exitoso / Login successful: ' + res.mensaje)
-        // Redirigir a create-material después del login exitoso
-        // Redirect to create-material after successful login
-        this.router.navigate(['/create-material']);
+        // Mostrar mensaje de éxito estilizado
+        this.showSuccessMessage = true;
+        
+        // Ocultar el mensaje después de 3 segundos y redirigir
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          this.router.navigate(['/materiales']);
+        }, 3000);
       },
       err => {
-        alert('Error al iniciar sesión / Login error: ' + err.error.mensaje)
+        alert('Error al iniciar sesión: ' + err.error.mensaje)
       }
     )
   }

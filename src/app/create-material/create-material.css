@@ -1,6 +1,12 @@
 /* 
-Español: Estilos para la página completa de gestión de materiales con paginación y búsqueda.
-English: Styles for the complete materials management page with pagination and search.
+FOUND IT Software - Sistema de Gestión de Materiales
+Colores de la marca según la imagen del logo:
+- Azul oscuro (F): #1e3a8a - Color principal de marca
+- Azul claro (OUND): #3b82f6 - Color secundario de marca  
+- Rojo (IT): #dc2626 - Color de acento de marca
+- Gris (Software): #6b7280 - Color neutro
+
+Estilos para la página completa de gestión de materiales con paginación y búsqueda.
 */
 
 /* Page Container */
@@ -9,7 +15,7 @@ English: Styles for the complete materials management page with pagination and s
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1d42e4 0%, #335c7e 100%);
   min-height: 100vh;
 }
 
@@ -31,19 +37,72 @@ English: Styles for the complete materials management page with pagination and s
   gap: 20px;
 }
 
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+}
+
+/* FOUND IT Logo Styling - Colores exactos de la imagen */
+.logo {
+  display: flex;
+  align-items: baseline;
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1;
+  position: relative;
+}
+
+.logo-f {
+  color: #1e3a8a;
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.3);
+}
+
+.logo-ound {
+  color: #3b82f6;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-left: -5px;
+}
+
+.logo-it {
+  color: #dc2626;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-left: 8px;
+  text-shadow: 2px 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+.logo-software {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 15px;
+  position: absolute;
+  bottom: -5px;
+  right: -80px;
+}
+
 .header-text {
   flex: 1;
 }
 
 .header-text h1 {
-  color: #2c3e50;
+  color: #1e3a8a;
   margin: 0 0 15px 0;
   font-size: 2.5rem;
   font-weight: 700;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .header-text p {
-  color: #7f8c8d;
+  color: #6b7280;
   margin: 0;
   line-height: 1.6;
   font-size: 1.1rem;
@@ -54,9 +113,9 @@ English: Styles for the complete materials management page with pagination and s
   gap: 15px;
 }
 
-.btn-logout {
+.btn-back {
   padding: 12px 20px;
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  background: linear-gradient(135deg, #1d42e4 0%, #1e3a8a 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -67,12 +126,582 @@ English: Styles for the complete materials management page with pagination and s
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+  box-shadow: 0 4px 15px rgba(29, 66, 228, 0.3);
+}
+
+.btn-back:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(29, 66, 228, 0.4);
+}
+
+.btn-logout {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
 }
 
 .btn-logout:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+}
+
+/* Logout Message - Mensaje de logout exitoso estilizado */
+.logout-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.logout-content {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logout-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.logout-icon .icon {
+  font-size: 1.5rem;
+}
+
+.logout-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.logout-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.logout-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.logout-progress .progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+  animation: progressAnimation 3s linear forwards;
+}
+
+/* Success Message - Mensaje de crear material exitoso */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.success-content {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.success-icon .icon {
+  font-size: 1.5rem;
+}
+
+.success-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.success-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.success-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.success-progress .progress-bar {
+  height: 100%;
+  /* Español: Gradiente elegante de blancos */
+  /* English: Elegant white gradient */
+  background: linear-gradient(90deg, #fff 0%, #f8fafc 50%, #e0e7ef 100%);
+  animation: progressAnimation 3s linear forwards;
+}
+
+/* Edit Message - Mensaje de editar material exitoso */
+.edit-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.edit-content {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.edit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.edit-icon .icon {
+  font-size: 1.5rem;
+}
+
+.edit-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.edit-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.edit-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.edit-progress .progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+  animation: progressAnimation 3s linear forwards;
+}
+
+/* Delete Message - Mensaje de eliminar material exitoso */
+.delete-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.delete-content {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.delete-icon .icon {
+  font-size: 1.5rem;
+}
+
+.delete-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.delete-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.delete-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.delete-progress .progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+  animation: progressAnimation 3s linear forwards;
+}
+
+/* Validation Message - Mensaje de validación de campos */
+.validation-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.validation-content {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.validation-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.validation-icon .icon {
+  font-size: 1.5rem;
+}
+
+.validation-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.validation-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.validation-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.validation-progress .progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+  animation: progressAnimation 3s linear forwards;
+}
+
+/* Confirm Message - Mensaje de confirmación de eliminación */
+.confirm-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  animation: slideInUp 0.5s ease-out;
+}
+
+.confirm-content {
+  background: linear-gradient(135deg, #1d42e4 0%, #1e3a8a 100%);
+  color: white;
+  padding: 30px 35px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(29, 66, 228, 0.4);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.confirm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: pulse 2s infinite;
+}
+
+.confirm-icon .icon {
+  font-size: 2rem;
+}
+
+.confirm-text h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.confirm-text p {
+  margin: 0 0 25px 0;
+  font-size: 1.1rem;
+  text-align: center;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-confirm-yes,
+.btn-confirm-no {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.btn-confirm-yes {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.btn-confirm-yes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.btn-confirm-no {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+}
+
+.btn-confirm-no:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
+}
+
+/* Error Message - Mensaje de error */
+.error-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.error-content {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: pulse 2s infinite;
+}
+
+.error-icon .icon {
+  font-size: 1.5rem;
+}
+
+.error-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.error-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.error-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.error-progress .progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+  animation: progressAnimation 4s linear forwards;
+}
+
+/* Animaciones para logout message */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes progressAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* Search Section */
@@ -187,7 +816,7 @@ English: Styles for the complete materials management page with pagination and s
 
 .materials-table td {
   padding: 15px;
-  color: #2c3e50;
+  color:#1d42e4 0%;
   font-size: 0.95rem;
 }
 
@@ -270,7 +899,7 @@ English: Styles for the complete materials management page with pagination and s
 }
 
 .btn-pagination:hover:not(:disabled) {
-  background: #667eea;
+  background: #1d42e4 0%;
   color: white;
   transform: translateY(-2px);
 }
@@ -315,6 +944,28 @@ English: Styles for the complete materials management page with pagination and s
   padding: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.form-section.form-highlight {
+  animation: formHighlight 2s ease-in-out;
+  box-shadow: 0 8px 32px rgba(29, 66, 228, 0.2);
+  border: 2px solid rgba(29, 66, 228, 0.3);
+}
+
+@keyframes formHighlight {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(29, 66, 228, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(29, 66, 228, 0.2);
+  }
 }
 
 .form-header {
@@ -472,6 +1123,12 @@ English: Styles for the complete materials management page with pagination and s
     justify-content: center;
   }
   
+  .btn-back,
+  .btn-logout {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
   .form-row {
     grid-template-columns: 1fr;
   }
@@ -508,6 +1165,51 @@ English: Styles for the complete materials management page with pagination and s
   .materials-table td {
     padding: 10px 8px;
   }
+  
+  .logout-message,
+  .success-message,
+  .edit-message,
+  .delete-message,
+  .validation-message,
+  .error-message {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+  }
+  
+  .logout-content,
+  .success-content,
+  .edit-content,
+  .delete-content,
+  .validation-content,
+  .error-content {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .confirm-message {
+    top: 50%;
+    left: 50%;
+    right: 10px;
+    transform: translate(-50%, -50%);
+  }
+  
+  .confirm-content {
+    min-width: auto;
+    width: 100%;
+    padding: 25px 20px;
+  }
+  
+  .confirm-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-confirm-yes,
+  .btn-confirm-no {
+    width: 100%;
+    min-width: auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -531,5 +1233,43 @@ English: Styles for the complete materials management page with pagination and s
   .btn-logout {
     padding: 10px 15px;
     font-size: 0.9rem;
+  }
+  
+  .btn-back {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .logout-content,
+  .success-content,
+  .edit-content,
+  .delete-content {
+    padding: 15px 20px;
+  }
+  
+  .logout-text h3,
+  .success-text h3,
+  .edit-text h3,
+  .delete-text h3,
+  .validation-text h3,
+  .error-text h3 {
+    font-size: 1.1rem;
+  }
+  
+  .logout-text p,
+  .success-text p,
+  .edit-text p,
+  .delete-text p,
+  .validation-text p,
+  .error-text p {
+    font-size: 0.9rem;
+  }
+  
+  .confirm-text h3 {
+    font-size: 1.3rem;
+  }
+  
+  .confirm-text p {
+    font-size: 1rem;
   }
 }
