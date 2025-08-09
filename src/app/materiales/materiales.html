@@ -1,0 +1,66 @@
+<!-- Vista de tabla de materiales / Materials table view -->
+
+<!-- 
+Español: Se agregó un botón para consultar y mostrar los materiales.
+English: A button was added to fetch and display the materials.
+-->
+
+<button (click)="consultarTodosMateriales()">
+  Consultar materiales / Fetch materials
+</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Cantidad</th>
+      <th>Ubicación</th>
+      <th>Movimientos</th>
+      <th>Historial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Español: Itera sobre la lista de materiales obtenida de la función consultarTodosMateriales -->
+    <!-- English: Iterate over the materials list obtained from consultarTodosMateriales function -->
+    <tr *ngFor="let material of materiales">
+      <!-- 
+        Español: Centramos el contenido de cada celda y ajustamos el formato para que la información se vea alineada y clara.
+        English: Center the content of each cell and adjust the format so the information looks aligned and clear.
+      -->
+      <td style="text-align: center; vertical-align: middle;">{{ material.nombre }}</td>
+      <td style="text-align: center; vertical-align: middle; max-width: 200px; word-break: break-word;">
+        {{ material.descripcion }}
+      </td>
+      <td style="text-align: center; vertical-align: middle; width: 80px;">
+        {{ material.cantidad }}
+      </td>
+      <td style="text-align: center; vertical-align: middle; max-width: 150px; word-break: break-word;">
+        {{ material.ubicacion }}
+      </td>
+      <td style="text-align: center; vertical-align: middle; width: 180px;">
+        {{ material.Timestamp ? (material.Timestamp | date:'yyyy-MM-dd HH:mm:ss') : '' }}
+      </td>
+      <td style="text-align: center; vertical-align: middle; max-width: 250px; word-break: break-word;">
+        <!-- 
+          Español: Al acercar el cursor sobre cada movimiento, se muestra la hora (timestamp) en un tooltip.
+          English: When hovering over each movement, the time (timestamp) is shown in a tooltip.
+        -->
+        <span *ngFor="let movimiento of material.movimientos; let last = last">
+          <span 
+            [title]="movimiento.timestamp ? (movimiento.timestamp | date:'yyyy-MM-dd HH:mm:ss') : ''"
+            style="cursor: pointer;">
+            {{ movimiento.descripcion || movimiento }}
+          </span>
+          <span *ngIf="!last">, </span>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 
+Español: La tabla está lista para mostrar los materiales consultados desde el servicio.
+English: The table is ready to display materials fetched from the service.
+-->
+

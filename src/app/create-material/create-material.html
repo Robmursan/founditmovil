@@ -1,0 +1,261 @@
+<!-- 
+Español: Página completa para gestionar materiales con paginación, búsqueda y formulario.
+English: Complete page to manage materials with pagination, search and form.
+-->
+
+<div class="page-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1>Gestión de Materiales | Materials Management</h1>
+        <p>
+          Español: Administre sus materiales con búsqueda, paginación y formulario de creación.<br>
+          English: Manage your materials with search, pagination and creation form.
+        </p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-logout" (click)="logout()" title="Cerrar sesión / Logout">
+          <i class="icon">🚪</i>
+          Cerrar sesión / Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-container">
+      <label for="searchInput" class="search-label">
+        <i class="icon">🔍</i>
+        Buscar por nombre / Search by name
+      </label>
+      <input
+        type="text"
+        id="searchInput"
+        [(ngModel)]="searchTerm"
+        (input)="filterMaterials()"
+        placeholder="Ingrese nombre del material / Enter material name"
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <!-- Materials List Section -->
+  <div class="materials-section">
+    <div class="section-header">
+      <h2>Lista de Materiales | Materials List</h2>
+      <div class="items-info">
+        <span>Mostrando {{ startIndex + 1 }}-{{ endIndex }} de {{ filteredMaterials.length }} materiales</span>
+      </div>
+    </div>
+
+    <!-- Materials Table -->
+    <div class="table-container">
+      <table class="materials-table">
+        <thead>
+          <tr>
+            <th>Celda / Cell</th>
+            <th>Nombre / Name</th>
+            <th>Descripción / Description</th>
+            <th>Cantidad / Quantity</th>
+            <th>Ubicación / Location</th>
+            <th>Acciones / Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let material of paginatedMaterials; let i = index">
+            <td>{{ material.celda || 'N/A' }}</td>
+            <td>{{ material.nombre }}</td>
+            <td>{{ material.descripcion }}</td>
+            <td>{{ material.cantidad }}</td>
+            <td>{{ material.ubicacion }}</td>
+            <td class="actions-cell">
+              <button 
+                class="btn-edit" 
+                (click)="editMaterial(material)"
+                title="Editar / Edit"
+              >
+                <i class="icon">✏️</i>
+              </button>
+              <button 
+                class="btn-delete" 
+                (click)="confirmDelete(material)"
+                title="Eliminar / Delete"
+              >
+                <i class="icon">🗑️</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      </div>
+      <div class="pagination-controls">
+        <button 
+          class="btn-pagination" 
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+        >
+          <i class="icon">⬅️</i> Anterior / Previous
+        </button>
+        
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of visiblePages" 
+            class="btn-page" 
+            [class.active]="page === currentPage"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        </div>
+        
+        <button 
+          class="btn-pagination" 
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+        >
+          Siguiente / Next <i class="icon">➡️</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Update Form Section -->
+  <div class="form-section">
+    <div class="form-header">
+      <h2>{{ isEditing ? 'Actualizar Material | Update Material' : 'Crear Material | Create Material' }}</h2>
+      <p>
+        Español: Complete los campos para {{ isEditing ? 'modificar' : 'registrar' }} un material.<br>
+        English: Fill in the fields to {{ isEditing ? 'modify' : 'register' }} a material.
+      </p>
+    </div>
+
+    <form #materialForm="ngForm" class="material-form" (ngSubmit)="isEditing ? updateMaterial() : createMaterial()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="celda" class="form-label">
+            <i class="icon">📦</i>
+            Celda / Cell
+          </label>
+          <input
+            type="number"
+            id="celda"
+            name="celda"
+            [(ngModel)]="data.celda"
+            required
+            min="1"
+            placeholder="Ingrese el número de celda / Enter cell number"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="nombre" class="form-label">
+            <i class="icon">🏷️</i>
+            Nombre / Name
+          </label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="data.materiales[0].nombre"
+            required
+            placeholder="Ingrese el nombre / Enter name"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="descripcion" class="form-label">
+          <i class="icon">📝</i>
+          Descripción / Description
+        </label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          [(ngModel)]="data.materiales[0].descripcion"
+          required
+          placeholder="Ingrese la descripción / Enter description"
+          class="form-textarea"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cantidad" class="form-label">
+            <i class="icon">🔢</i>
+            Cantidad / Quantity
+          </label>
+          <input
+            type="number"
+            id="cantidad"
+            name="cantidad"
+            [(ngModel)]="data.materiales[0].cantidad"
+            required
+            min="1"
+            placeholder="Ingrese la cantidad / Enter quantity"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="ubicacion" class="form-label">
+            <i class="icon">📍</i>
+            Ubicación / Location
+          </label>
+          <input
+            type="text"
+            id="ubicacion"
+            name="ubicacion"
+            [(ngModel)]="data.materiales[0].ubicacion"
+            required
+            placeholder="Ingrese la ubicación / Enter location"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="movimiento" class="form-label">
+          <i class="icon">🔄</i>
+          Movimiento / Movement
+        </label>
+        <select
+          id="movimiento"
+          name="movimiento"
+          [(ngModel)]="data.materiales[0].movimientoSeleccionado"
+          required
+          class="form-select"
+        >
+          <option value="" disabled selected>Seleccione el tipo de movimiento / Select movement type</option>
+          <option value="entrada">Entrada / Entry</option>
+          <option value="salida">Salida / Exit</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">
+          <i class="icon">✅</i>
+          {{ isEditing ? 'Actualizar / Update' : 'Crear / Create' }}
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarMaterial()">
+          <i class="icon">🧹</i>
+          Limpiar / Clear
+        </button>
+        <button *ngIf="isEditing" type="button" class="btn-cancel" (click)="cancelEdit()">
+          <i class="icon">❌</i>
+          Cancelar / Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

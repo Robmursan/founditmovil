@@ -1,0 +1,32 @@
+<!-- Español:
+Este es un formulario de login simple con campos para email y contraseña, enlazados al modelo 'usuario' del componente. Al enviar el formulario, se llama al método 'login()'.
+-->
+
+
+<form (ngSubmit)="login()" #loginForm="ngForm">
+  <div>
+    <label for="email">Correo electrónico:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="usuario.email"
+      required
+      placeholder="Introduce tu correo"
+    />
+  </div>
+  <div>
+    <label for="password">Contraseña / Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="usuario.password"
+      required
+      placeholder="Introduce tu contraseña"
+    />
+  </div>
+  <button type="submit" [disabled]="!loginForm.form.valid">
+    Iniciar sesión / Login
+  </button>
+</form>
