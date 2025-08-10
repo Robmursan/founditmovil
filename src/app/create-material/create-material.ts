@@ -170,7 +170,7 @@ export class CreateMaterial {
     this.isEditing = true;
     this.editingMaterialId = material._id || material.id; // Usar ID del material
     
-    // Fill form with material data
+    // Llenar el formulario con los datos del material para mandarlos al servidor
     this.data.celda = material.celda || 0;
     this.data.materiales[0] = {
       nombre: material.nombre || '',
@@ -291,7 +291,15 @@ export class CreateMaterial {
       console.log('Actualizando material con ID:', originalId);
       console.log('Datos a enviar:', this.data.materiales[0]);
       
-      this.materialesService.updateMateriales(originalId, this.data.materiales[0]).subscribe(
+      this.materialesService.updateMateriales(originalId, {
+        celda: this.data.celda,
+        nombre: this.data.materiales[0].nombre,
+        descripcion: this.data.materiales[0].descripcion,
+        cantidad: this.data.materiales[0].cantidad,
+        ubicacion: this.data.materiales[0].ubicacion,
+        movimientos: this.data.materiales[0].movimientos,
+        movimientoSeleccionado: this.data.materiales[0].movimientoSeleccionado
+      }).subscribe(
         res => {
           console.log('Respuesta del servidor (actualizar):', res);
           // Mostrar mensaje de éxito estilizado

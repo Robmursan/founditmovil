@@ -43,18 +43,22 @@ export class Materiales {
     return this.http.post<any>(this.url.createMateriales, data);
   }
 
+  // Español: Actualiza el material asegurando que el cuerpo de la solicitud tenga la misma estructura que createMateriales (incluyendo 'celda' y 'materiales' como array).
+  // English: Updates the material ensuring the request body matches createMateriales (including 'celda' and 'materiales' as array).
   updateMateriales(
     id: string,
-    data:{
+    data: {
+      celda: number;
       nombre: string;
       descripcion: string;
       cantidad: number;
       ubicacion: string;
       movimientos: string[];
+      movimientoSeleccionado?: string;
     }
-  ){
+  ) {
     const url = this.url.updateMateriales.replace(':id', id);
-    return this.http.put<any>(url, data);
+    return this.http.put<any>(url, data); // retorna el resultado de la actualización / returns the update result
   }
 
   deleteMateriales(
