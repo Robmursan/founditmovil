@@ -1,0 +1,69 @@
+<!-- 
+  Vista para el lector de códigos de barras/QR usando la cámara.
+  Español: Esta vista permite al usuario iniciar y detener el escaneo de códigos usando la cámara del dispositivo.
+  English: This view allows the user to start and stop scanning codes using the device's camera.
+-->
+
+<div class="codelector-container">
+  <div class="header">
+    <div class="logo">
+      <span class="logo-f">F</span>
+      <span class="logo-ound">OUND</span>
+      <span class="logo-it">IT</span>
+    </div>
+    <h2>
+      <!-- Español: Lector de Códigos de Barras/QR -->
+      <!-- English: Barcode/QR Code Scanner -->
+      Lector de Códigos de Barras / QR
+    </h2>
+    <p>
+      <!-- Español: Usa tu cámara para escanear un código de barras o QR. -->
+      <!-- English: Use your camera to scan a barcode or QR code. -->
+      Usa tu cámara para escanear un código de barras o QR.<br>
+      Use your camera to scan a barcode or QR code.
+    </p>
+  </div>
+
+  <div class="scanner-controls">
+    <button 
+      class="btn-scan" 
+      (click)="startScanning()" 
+      [disabled]="isScanning">
+      <i class="icon">📷</i>
+      <!-- Español: Iniciar escaneo / English: Start Scanning -->
+      Iniciar escaneo / Start Scanning
+    </button>
+    <button 
+      class="btn-stop" 
+      (click)="stopScanning()" 
+      [disabled]="!isScanning">
+      <i class="icon">🛑</i>
+      <!-- Español: Detener escaneo / English: Stop Scanning -->
+      Detener escaneo / Stop Scanning
+    </button>
+  </div>
+
+  <div class="video-wrapper">
+    <!-- 
+      Español: El elemento de video donde se mostrará la cámara.
+      English: The video element where the camera will be displayed.
+      El id debe coincidir con el usado en el TS: 'videoElementId'
+    -->
+    <video id="videoElementId" autoplay playsinline class="video-element"></video>
+  </div>
+
+  <!-- 
+    Español: Aquí puedes mostrar el resultado del escaneo si lo deseas.
+    English: Here you can display the scan result if you wish.
+    Ejemplo: <div *ngIf="scanResult">Resultado: {{ scanResult }}</div>
+  -->
+</div>
+
+<!-- 
+  Buenas prácticas:
+  - Los botones están deshabilitados según el estado de escaneo.
+  - El id del video es consistente con el TS.
+  - Estructura clara y semántica.
+  - Comentarios en español e inglés.
+-->
+
