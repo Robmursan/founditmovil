@@ -49,8 +49,8 @@ export class CreateMaterial {
         descripcion: '',
         cantidad: 0,
         ubicacion: '',
-        movimientos: [],
-        movimientoSeleccionado: ''
+        movimientos: '',
+        //movimientoSeleccionado: ''
       }
     ]
   };
@@ -177,8 +177,7 @@ export class CreateMaterial {
       descripcion: material.descripcion || '',
       cantidad: material.cantidad || 0,
       ubicacion: material.ubicacion || '',
-      movimientos: material.movimientos || [],
-      movimientoSeleccionado: material.movimientoSeleccionado || ''
+      movimientos: material.movimientos || '',
     };
     
     console.log('Formulario llenado con datos:', this.data);
@@ -298,7 +297,6 @@ export class CreateMaterial {
         cantidad: this.data.materiales[0].cantidad,
         ubicacion: this.data.materiales[0].ubicacion,
         movimientos: this.data.materiales[0].movimientos,
-        movimientoSeleccionado: this.data.materiales[0].movimientoSeleccionado
       }).subscribe(
         res => {
           console.log('Respuesta del servidor (actualizar):', res);
@@ -341,8 +339,7 @@ export class CreateMaterial {
       this.data.materiales[0].nombre.trim() !== '' &&
       this.data.materiales[0].descripcion.trim() !== '' &&
       this.data.materiales[0].cantidad > 0 &&
-      this.data.materiales[0].ubicacion.trim() !== '' &&
-      this.data.materiales[0].movimientoSeleccionado.trim() !== '';
+      this.data.materiales[0].ubicacion.trim() !== '';
   }
 
   // Clear form
@@ -353,8 +350,7 @@ export class CreateMaterial {
       descripcion: '',
       cantidad: 0,
       ubicacion: '',
-      movimientos: [],
-      movimientoSeleccionado: ''
+      movimientos: ''
     };
   }
 

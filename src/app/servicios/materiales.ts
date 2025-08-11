@@ -36,7 +36,7 @@ export class Materiales {
         descripcion: string;
         cantidad: number;
         ubicacion: string;
-        movimientos: string[];
+        movimientos: string;
       }>
     }
   ){
@@ -53,8 +53,7 @@ export class Materiales {
       descripcion: string;
       cantidad: number;
       ubicacion: string;
-      movimientos: string[];
-      movimientoSeleccionado?: string;
+      movimientos: string;
     }
   ) {
     const url = this.url.updateMateriales.replace(':id', id);
