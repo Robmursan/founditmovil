@@ -400,7 +400,7 @@ export class CreateMaterial {
     }, 150);
   }
 
-  // Location consultation methods
+  // Location consultation methods - Métodos de consulta de ubicación
   consultarUbicacion(material: any) {
     console.log('Consultando ubicación para material:', material);
     this.celdaConsulta = material.celda || 0;
@@ -409,14 +409,16 @@ export class CreateMaterial {
 
   closeLocationModal() {
     this.showLocationModal = false;
-    this.limpiarConsulta();
+    this.apagarLed();
   }
 
-  buscarUbicacion() {
+  // Español: Encender LED en la celda especificada
+  // English: Turn on LED in the specified cell
+  encenderLed() {
     if (this.celdaConsulta >= 0 && this.celdaConsulta <= 11) {
-      console.log('Buscando ubicación en celda:', this.celdaConsulta);
+      console.log('Encendiendo LED en celda:', this.celdaConsulta);
       
-      // Controlar LED para encender (buscar)
+      // Controlar LED para encender
       this.controlLed(this.celdaConsulta, 'on');
       
       // Aquí podrías agregar lógica adicional para mostrar información de la celda
@@ -426,16 +428,18 @@ export class CreateMaterial {
     }
   }
 
-  limpiarConsulta() {
-    this.celdaConsulta = 0;
-    
-    // Controlar LED para apagar (limpiar)
+  // Español: Apagar LED en la celda especificada
+  // English: Turn off LED in the specified cell
+  apagarLed() {
     if (this.celdaConsulta >= 0 && this.celdaConsulta <= 11) {
+      // Controlar LED para apagar
       this.controlLed(this.celdaConsulta, 'off');
     }
+    this.celdaConsulta = 0;
   }
 
-  // Control LED method (translated from JavaScript to TypeScript)
+  // Español: Controlar el estado de encendido/apagado del LED
+  // English: Control the on/off state of the LED
   private controlLed(ledId: number, state: string) {
     console.log(`Enviando comando LED: ID=${ledId}, Estado=${state}`);
     

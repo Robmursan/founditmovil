@@ -9,6 +9,28 @@ Colores de la marca según la imagen del logo:
 Estilos para la página completa de gestión de materiales con paginación y búsqueda.
 */
 
+/* Android and Mobile Device Optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS specific styles */
+  .page-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Android Chrome and WebView optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .page-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .btn-edit, .btn-delete, .btn-location {
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
 /* Page Container */
 .page-container {
   max-width: 1200px;
@@ -17,6 +39,8 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #1d42e4 0%, #335c7e 100%);
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Header Section */
@@ -52,6 +76,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   font-size: 2.5rem;
   line-height: 1;
   position: relative;
+  flex-shrink: 0;
 }
 
 .logo-f {
@@ -88,6 +113,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
 
 .header-text {
   flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
 }
 
 .header-text h1 {
@@ -99,6 +125,8 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .header-text p {
@@ -106,11 +134,14 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   margin: 0;
   line-height: 1.6;
   font-size: 1.1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .header-actions {
   display: flex;
   gap: 15px;
+  flex-shrink: 0;
 }
 
 .btn-back {
@@ -127,6 +158,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   align-items: center;
   gap: 8px;
   box-shadow: 0 4px 15px rgba(29, 66, 228, 0.3);
+  white-space: nowrap;
 }
 
 .btn-back:hover {
@@ -148,6 +180,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   align-items: center;
   gap: 8px;
   box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  white-space: nowrap;
 }
 
 .btn-logout:hover {
@@ -781,6 +814,8 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   overflow-x: auto;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .materials-table {
@@ -789,6 +824,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   background: white;
   border-radius: 10px;
   overflow: hidden;
+  min-width: 600px; /* Ensures table doesn't get too compressed */
 }
 
 .materials-table thead {
@@ -803,6 +839,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .materials-table tbody tr {
@@ -818,12 +855,17 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   padding: 15px;
   color:#1d42e4 0%;
   font-size: 0.95rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 200px;
 }
 
 .actions-cell {
   display: flex;
   gap: 8px;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  min-width: 120px;
 }
 
 /* Action Buttons */
@@ -1117,26 +1159,59 @@ Estilos para la página completa de gestión de materiales con paginación y bú
 @media (max-width: 768px) {
   .page-container {
     padding: 15px;
+    overflow-x: hidden;
   }
   
   .header-content {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 15px;
+  }
+  
+  .brand-section {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .logo {
+    font-size: 2rem;
+  }
+  
+  .logo-f {
+    font-size: 2.8rem;
+  }
+  
+  .logo-ound,
+  .logo-it {
+    font-size: 2rem;
   }
   
   .header-text h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .header-text p {
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .header-actions {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   
   .btn-back,
   .btn-logout {
-    padding: 10px 15px;
+    padding: 12px 16px;
     font-size: 0.9rem;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .form-row {
@@ -1146,34 +1221,60 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   .section-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .pagination-container {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
   
   .pagination-controls {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
   
   .form-actions {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
   
   .btn-submit, .btn-clear, .btn-cancel {
     width: 100%;
     max-width: 300px;
+    min-height: 44px;
   }
   
   .materials-table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    min-width: 500px;
   }
   
   .materials-table th,
   .materials-table td {
-    padding: 10px 8px;
+    padding: 8px 6px;
+    max-width: 150px;
+  }
+  
+  .actions-cell {
+    flex-direction: column;
+    gap: 5px;
+    min-width: 80px;
+  }
+  
+  .btn-edit, .btn-delete, .btn-location {
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
   }
   
   .logout-message,
@@ -1195,6 +1296,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   .error-content {
     min-width: auto;
     width: 100%;
+    padding: 20px 15px;
   }
   
   .confirm-message {
@@ -1219,35 +1321,99 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   .btn-confirm-no {
     width: 100%;
     min-width: auto;
+    min-height: 44px;
   }
-}
-
-@media (max-width: 480px) {
-  .header-text h1 {
-    font-size: 1.8rem;
+  
+  /* Table mobile optimizations */
+  .table-container {
+    border-radius: 8px;
+    margin: 0 -15px;
+    width: calc(100% + 30px);
+  }
+  
+  /* Search section mobile optimizations */
+  .search-section {
+    padding: 20px;
+  }
+  
+  .search-input {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  
+  /* Form section mobile optimizations */
+  .form-section {
+    padding: 25px 20px;
   }
   
   .form-header h2 {
     font-size: 1.6rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .form-input, .form-textarea, .form-select {
+    font-size: 16px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 10px;
+  }
+  
+  .page-header {
+    padding: 20px 15px;
+  }
+  
+  .header-text h1 {
+    font-size: 1.6rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .form-header h2 {
+    font-size: 1.4rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .materials-table {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    min-width: 450px;
+  }
+  
+  .materials-table th,
+  .materials-table td {
+    padding: 6px 4px;
+    max-width: 120px;
   }
   
   .actions-cell {
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
+    min-width: 60px;
+  }
+  
+  .btn-edit, .btn-delete, .btn-location {
+    min-height: 40px;
+    min-width: 40px;
+    font-size: 0.8rem;
   }
   
   .btn-logout {
-    padding: 10px 15px;
-    font-size: 0.9rem;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .btn-back {
-    padding: 10px 15px;
-    font-size: 0.9rem;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .logout-content,
@@ -1281,6 +1447,33 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   
   .confirm-text p {
     font-size: 1rem;
+  }
+  
+  /* Extra small screen optimizations */
+  .search-section,
+  .materials-section,
+  .form-section {
+    padding: 15px 10px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .pagination-controls {
+    gap: 5px;
+  }
+  
+  .btn-pagination {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+  
+  .btn-page {
+    padding: 6px 10px;
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
@@ -1369,7 +1562,7 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   margin-top: 10px;
 }
 
-.btn-search {
+.btn-on {
   background: #27ae60;
   color: white;
   border: none;
@@ -1384,14 +1577,14 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   font-size: 1rem;
 }
 
-.btn-search:hover {
+.btn-on:hover {
   background: #229954;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
 }
 
-.btn-clear-location {
-  background: #95a5a6;
+.btn-off {
+  background: #7f8c8d;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1405,39 +1598,206 @@ Estilos para la página completa de gestión de materiales con paginación y bú
   font-size: 1rem;
 }
 
-.btn-clear-location:hover {
-  background: #7f8c8d;
+.btn-off:hover {
+  background: #6c7b7d;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+  box-shadow: 0 5px 15px rgba(124, 140, 141, 0.3);
 }
 
 /* Responsive styles for location modal */
 @media (max-width: 768px) {
+  .location-modal {
+    padding: 10px;
+  }
+  
   .location-content {
     width: 95%;
     padding: 25px 20px;
+    max-width: none;
   }
   
   .location-header h2 {
     font-size: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .location-actions {
     flex-direction: column;
+    gap: 10px;
   }
   
-  .btn-search,
-  .btn-clear-location {
+  .btn-on,
+  .btn-off {
     width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+  
+  .form-input {
+    font-size: 16px;
+    min-height: 44px;
   }
 }
 
 @media (max-width: 480px) {
+  .location-modal {
+    padding: 5px;
+  }
+  
   .location-content {
     padding: 20px 15px;
+    width: 98%;
   }
   
   .location-header h2 {
     font-size: 1.3rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .btn-close {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .form-input {
+    font-size: 16px;
+    min-height: 44px;
+    padding: 12px 15px;
+  }
+}
+
+/* Landscape orientation optimizations for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .page-container {
+    padding: 10px;
+  }
+  
+  .page-header {
+    padding: 15px 20px;
+    margin-bottom: 15px;
+  }
+  
+  .header-content {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .brand-section {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+  }
+  
+  .logo-f {
+    font-size: 2.4rem;
+  }
+  
+  .logo-ound,
+  .logo-it {
+    font-size: 1.8rem;
+  }
+  
+  .header-text h1 {
+    font-size: 1.6rem;
+  }
+  
+  .search-section,
+  .materials-section,
+  .form-section {
+    padding: 15px 20px;
+    margin-bottom: 15px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .materials-table {
+    font-size: 0.75rem;
+    min-width: 600px;
+  }
+  
+  .materials-table th,
+  .materials-table td {
+    padding: 6px 8px;
+  }
+  
+  .actions-cell {
+    flex-direction: row;
+    gap: 4px;
+  }
+  
+  .btn-edit, .btn-delete, .btn-location {
+    min-height: 36px;
+    min-width: 36px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Ultra-wide mobile screens (tablets in portrait) */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .page-container {
+    padding: 20px;
+  }
+  
+  .materials-table {
+    min-width: 700px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  
+  .header-content {
+    gap: 30px;
+  }
+  
+  .brand-section {
+    gap: 25px;
+  }
+}
+
+/* Print styles for better mobile printing */
+@media print {
+  .page-container {
+    background: white;
+    padding: 0;
+  }
+  
+  .page-header,
+  .search-section,
+  .form-section,
+  .btn-edit,
+  .btn-delete,
+  .btn-location,
+  .pagination-container {
+    display: none;
+  }
+  
+  .materials-section {
+    background: white;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .materials-table {
+    border: 1px solid #000;
+  }
+  
+  .materials-table th,
+  .materials-table td {
+    border: 1px solid #000;
+    padding: 8px;
   }
 }
