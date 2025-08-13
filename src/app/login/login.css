@@ -333,6 +333,123 @@ Colores de la marca según la imagen del logo:
   animation: progressAnimation 3s linear forwards;
 }
 
+/* Error Message - Notificación de error estilizada */
+.error-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.error-content {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: errorPulse 2s infinite;
+}
+
+.error-icon .icon {
+  font-size: 1.5rem;
+}
+
+.error-text h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.error-text p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.error-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.error-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.error-close:active {
+  transform: scale(0.95);
+}
+
+.error-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.error-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #fef2f2 100%);
+  animation: errorProgressAnimation 5s linear forwards;
+}
+
+/* Animaciones para notificaciones de error */
+@keyframes errorPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes errorProgressAnimation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
 /* Animaciones */
 @keyframes slideInRight {
   from {
@@ -618,6 +735,11 @@ Colores de la marca según la imagen del logo:
     min-width: auto;
     width: 100%;
   }
+  
+  .error-content {
+    min-width: auto;
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -673,6 +795,18 @@ Colores de la marca según la imagen del logo:
   }
   
   .success-text p {
+    font-size: 0.9rem;
+  }
+  
+  .error-content {
+    padding: 15px 20px;
+  }
+  
+  .error-text h3 {
+    font-size: 1.1rem;
+  }
+  
+  .error-text p {
     font-size: 0.9rem;
   }
 }

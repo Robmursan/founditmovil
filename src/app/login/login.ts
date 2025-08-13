@@ -18,6 +18,8 @@ export class Login {
   }
   
   showSuccessMessage = false;
+  showErrorMessage = false;
+  errorMessage = '';
 
   constructor(private loginService: LoginService, private router: Router){}//constructor del componente login con el servicio de login y el router
 
@@ -35,9 +37,21 @@ export class Login {
         }, 3000);
       },
       err => {
-        alert('Error al iniciar sesión: ' + err.error.mensaje)
+        // Mostrar notificación de error en lugar de alert
+        this.errorMessage = err.error?.mensaje || 'Error al iniciar sesión. Verifica tus credenciales.';
+        this.showErrorMessage = true;
+        
+        // Ocultar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+          this.showErrorMessage = false;
+        }, 5000);
       }
     )
+  }
+
+  // Método para cerrar manualmente la notificación de error
+  closeErrorMessage() {
+    this.showErrorMessage = false;
   }
 
 }

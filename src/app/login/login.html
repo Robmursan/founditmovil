@@ -72,3 +72,22 @@
     </div>
   </div>
 </div>
+
+<!-- Notificación de error estilizada -->
+<div class="error-message" *ngIf="showErrorMessage">
+  <div class="error-content">
+    <div class="error-icon">
+      <i class="icon">❌</i>
+    </div>
+    <div class="error-text">
+      <h3>Error de Autenticación</h3>
+      <p>{{ errorMessage }}</p>
+    </div>
+    <button class="error-close" (click)="closeErrorMessage()">
+      <i class="icon">✕</i>
+    </button>
+    <div class="error-progress">
+      <div class="error-progress-bar"></div>
+    </div>
+  </div>
+</div>
