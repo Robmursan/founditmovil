@@ -122,7 +122,7 @@ npm start
 ng serve
 
 # Abrir en el navegador / Open in browser
-http://localhost:4200
+http://4.208.84.82:4200
 ```
 
 ### Construcción para Producción / Production Build

@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 })
 export class Materiales {
   private url ={
-    allMateriales: 'http://localhost:3000/materiales/all',
-    getMaterialnombre:'http://localhost:3000/materiales/name/:name',
-    createMateriales:'http://localhost:3000/materiales',
-    updateMateriales:'http://localhost:3000/materiales/:id',
-    deleteMateriales:'http://localhost:3000/materiales/:id',
+    allMateriales: 'http://4.208.84.82:3000/materiales/all',
+    getMaterialnombre:'http://4.208.84.82:3000/materiales/name/:name',
+    createMateriales:'http://4.208.84.82:3000/materiales',
+    updateMateriales:'http://4.208.84.82:3000/materiales/:id',
+    deleteMateriales:'http://4.208.84.82:3000/materiales/:id',
     
   }
   
