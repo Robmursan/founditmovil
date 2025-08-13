@@ -14,7 +14,7 @@ export class Materiales {
     createMateriales:'http://4.208.84.82:3000/materiales',
     updateMateriales:'http://4.208.84.82:3000/materiales/:id',
     deleteMateriales:'http://4.208.84.82:3000/materiales/:id',
-    
+    controlLed: 'http://4.208.84.82:3000/api/led/control', // Nueva URL para control de LEDs
   }
   
   constructor(private http: HttpClient){}
@@ -65,6 +65,13 @@ export class Materiales {
   ){
     const url = this.url.deleteMateriales.replace(':id', id);
     return this.http.delete<any>(url);
+  }
+
+  // Español: Método para controlar LEDs - controla el estado de encendido/apagado
+  // English: Method to control LEDs - controls the on/off state
+  controlLed(ledId: number, state: string): Observable<any> {
+    const data = { ledId: ledId, state: state };
+    return this.http.post<any>(this.url.controlLed, data);
   }
 
   

@@ -41,6 +41,10 @@ export class CreateMaterial {
   errorMessageText = '';
   materialToDelete: any = null;
   
+  // Location consultation properties
+  showLocationModal = false;
+  celdaConsulta: number = 0;
+  
   data = {
     celda: 0,
     materiales: [
@@ -394,5 +398,56 @@ export class CreateMaterial {
         }, 2000);
       }
     }, 150);
+  }
+
+  // Location consultation methods
+  consultarUbicacion(material: any) {
+    console.log('Consultando ubicación para material:', material);
+    this.celdaConsulta = material.celda || 0;
+    this.showLocationModal = true;
+  }
+
+  closeLocationModal() {
+    this.showLocationModal = false;
+    this.limpiarConsulta();
+  }
+
+  buscarUbicacion() {
+    if (this.celdaConsulta >= 0 && this.celdaConsulta <= 11) {
+      console.log('Buscando ubicación en celda:', this.celdaConsulta);
+      
+      // Controlar LED para encender (buscar)
+      this.controlLed(this.celdaConsulta, 'on');
+      
+      // Aquí podrías agregar lógica adicional para mostrar información de la celda
+      // For example: buscar materiales en esa celda específica
+    } else {
+      this.showError('El número de celda debe estar entre 0 y 11');
+    }
+  }
+
+  limpiarConsulta() {
+    this.celdaConsulta = 0;
+    
+    // Controlar LED para apagar (limpiar)
+    if (this.celdaConsulta >= 0 && this.celdaConsulta <= 11) {
+      this.controlLed(this.celdaConsulta, 'off');
+    }
+  }
+
+  // Control LED method (translated from JavaScript to TypeScript)
+  private controlLed(ledId: number, state: string) {
+    console.log(`Enviando comando LED: ID=${ledId}, Estado=${state}`);
+    
+    this.materialesService.controlLed(ledId, state).subscribe(
+      (data) => {
+        console.log('Comando de LED enviado exitosamente:', data);
+        // Aquí podrías mostrar un mensaje de éxito si es necesario
+      },
+      (error) => {
+        console.error('Error al enviar comando de LED:', error);
+        this.showError('Error al controlar el LED');
+      }
+    );
   }
 }
